@@ -1,0 +1,82 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block contacto_active %}
+    <li class="active"><a href="{% url 'contact' %}">Contacto</a></li>
+{% endblock %}
+    <!-- Header End -->
+{% block content %}
+    <!-- Map Begin -->
+    <div class="map" style="padding-top: 85px">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <iframe
+                    src="{{ general.map_addres }}"
+                    height="500" style="border:0;" allowfullscreen ></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Map End -->
+
+    <!-- Contact Section Begin -->
+    <section class="contact spad" style="padding-top: 185px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="contact__widget">
+                        <h2>Contáctenos</h2>
+                        <ul>
+                            <li>
+                                <div class="contact__widget__icon">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <div class="contact__widget__text">
+                                    <span>{{ general.email }}</span>
+                                    <p>{{ general.phone }}</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="contact__widget__icon">
+                                    <i class="fa fa-map-marker"></i>
+                                </div>
+                                <div class="contact__widget__text">
+                                    <p>{{ general.address }}</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="contact__widget__icon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <div class="contact__widget__text">
+                                    <span>{{ general.horario }}</span>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8">
+                    <div class="contact__form">
+                        <h2>Mensaje</h2>
+                        <form action="{% url 'contact'%}" method="post">
+                            <div class="row">
+                                 {% csrf_token %}
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <input required id="name" name="name" type="text" placeholder="Su nombre...">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <input required id="email" name="email" type="email" placeholder=" Su correo...">
+                                </div>
+                            </div>
+                            <textarea required id="message" name="message" placeholder="Su mensaje..."></textarea>
+                            <button type="submit" class="site-btn">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section End -->
+{% endblock %}

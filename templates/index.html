@@ -1,0 +1,448 @@
+{% load static %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Dreams Template">
+    <meta name="keywords" content="Dreams, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ general.name }}</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'front/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'front/css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'front/css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'front/css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'front/css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'front/css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'front/css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'front/css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'sweetalert2/sweetalert2.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+    <link rel="stylesheet" href="{% static 'front/css/gallery-grid.css' %}">
+</head>
+
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Header Section Begin -->
+<header class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 col-md-2">
+                <div class="header__logo">
+                    <a href="{% url 'home' %}"><img src="../static/front/img/logo.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-9">
+                <nav class="header__menu mobile-menu">
+                    <ul>
+                        {% block inicio_active %}
+                            <li><a href="{% url 'home' %}">Inicio</a></li>
+                        {% endblock %}
+                        {% block servicio_active %}
+                            <li><a href="{% url 'services' %}">Servicios</a></li>
+                        {% endblock %}
+
+                        <li><a href="./portfolio.html">Portafolio</a></li>
+                        {% block nosotros_active %}
+                        <li><a href="#">Nosotros</a>
+                            <ul class="dropdown">
+                                <li><a href="./about.html">Quiénes somos</a></li>
+                                <li><a href="{% url 'team' %}">Equipo</a></li>
+                            </ul>
+                        </li>
+                            {% endblock %}
+                        {% block blog_active %}
+                            <li><a href="{% url 'blog' 1 %}">Blog</a></li>
+                        {% endblock %}
+
+                        {% block contacto_active %}
+                            <li><a href="{% url 'contact' %}">Contacto</a></li>
+                        {% endblock %}
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-2 col-md-1">
+                <div class="header__right">
+                    <div class="header__right__social">
+                        {% if general.face %}
+                            <a target="_blank" href="{{ general.face }}"><i class="fa fa-facebook"></i></a>
+                        {% endif %}
+                        {% if general.twit %}
+                            <a target="_blank" href="{{ general.twit }}"><i class="fa fa-twitter"></i></a>
+                        {% endif %}
+                        {% if general.inst %}
+                            <a target="_blank" href="{{ general.inst }}"><i class="fa fa-instagram"></i></a>
+                        {% endif %}
+                        {% if general.yout %}
+                            <a target="_blank" href="{{ general.yout }}"><i class="fa fa-youtube"></i></a>
+                        {% endif %}
+                        {% if general.link %}
+                            <a target="_blank" href="{{ general.link }}"><i class="fa fa-linkedin"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+    </div>
+</header>
+<!-- Header End -->
+{% block content %}
+    <!-- Hero Section Begin -->
+    <section class="hero set_bg" style="background-image: url({{ general.image_banner_1 }});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: top center">
+        <div class="container-fluid">
+            <div class="hero__text">
+                <img src="../static/front/img/icon/hi.png" alt="">
+                <h5>{{ general.slogan_1 }}</h5>
+                <h2>{{ general.slogan_2 }}</h2>
+                <p>{{ general.slogan_3 }}</p>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Services Section Begin -->
+    <section class="services spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Nuestros Servicios</h2>
+                        <img src="../static/front/img/icon/ti.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for serv in services %}
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div style="height: 280px" class="services__item">
+                            <img height="70px" width="70px" src="{% thumbnail serv.image 750x0 crop %}" alt="">
+                            <h4>{{ serv.name }}</h4>
+                            <p>{{ serv.text|safe|truncatechars:100 }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- Services Section End -->
+
+    <!-- Feature Section Begin -->
+    <section class="features spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>{{ general.text_portafolio_inicio }}</h2>
+                        <img src="../static/front/img/icon/ti.png" alt="">
+                    </div>
+                    <ul class="filter__controls">
+                        <li class="active" data-filter="*">All</li>
+                        <li data-filter=".couple">Couple</li>
+                        <li data-filter=".event">Event</li>
+                        <li data-filter=".music">Music Live</li>
+                        <li data-filter=".honeymoon">Honeymoon</li>
+                        <li data-filter=".photography">Photography</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature__gallery">
+                <div class="grid-sizer"></div>
+                <div class="fg__item photography set-bg" data-setbg="img/features/feature-1.jpg">
+                    <div class="fg__item__text">
+                        <span>Ceremonies</span>
+                        <h2>Christina & Evelyn</h2>
+                    </div>
+                </div>
+                <div class="fg__item honeymoon mid_item set-bg" data-setbg="img/features/feature-2.jpg">
+                    <div class="fg__item__text">
+                        <span>Ceremonies</span>
+                        <h2>Christina & Evelyn</h2>
+                    </div>
+                </div>
+                <div class="fg__item music large_item set-bg" data-setbg="{{ dsd }}">
+                    <div class="fg__item__text">
+                        <span>Ceremonies</span>
+                        <h2>Christina & Evelyn</h2>
+                    </div>
+                </div>
+                <div class="fg__item event large_item set-bg" data-setbg="img/features/feature-4.jpg">
+                    <div class="fg__item__text">
+                        <span>Ceremonies</span>
+                        <h2>Christina & Evelyn</h2>
+                    </div>
+                </div>
+                <div class="fg__item couple mid_item set-bg" data-setbg="img/features/feature-5.jpg">
+                    <div class="fg__item__text">
+                        <span>Ceremonies</span>
+                        <h2>Christina & Evelyn</h2>
+                    </div>
+                </div>
+                <div class="fg__item photography set-bg" data-setbg="img/features/feature-6.jpg">
+                    <div class="fg__item__text">
+                        <span>Ceremonies</span>
+                        <h2>Christina & Evelyn</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="load__more">
+                        <a href="#" class="primary-btn">Ver mas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Feature Section End -->
+
+    <!-- Counter Section Begin -->
+    <div class="counter spad set-bg" data-setbg="img/counter-bg.jpg">
+        <div class="container">
+            <div class="row">
+                {% for inf in info %}
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="counter__item">
+                            <img height="90px" width="79px" src="{% thumbnail inf.image 750x0 crop %}" alt="">
+                            <h2 class="counter_num">{{ inf.cantidad }}</h2>
+                            <p>{{ inf.title }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Counter Section End -->
+
+    <!-- Request Form Section Begin -->
+    <section class="request">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-7">
+                    <div class="request__form">
+                        <div class="section-title">
+                            <span>{{ general.text_1_solicitud }}</span>
+                            <h2>{{ general.text_2_solicitud }}</h2>
+                            <p>{{ general.text_3_solicitud }}</p>
+                        </div>
+                        <form action="#">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 px-2">
+                                    <input required type="text" placeholder="Name">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 px-2">
+                                    <input required type="email" placeholder="Email">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 px-2">
+                                    <select>
+                                        <option value="">Services</option>
+                                        <option value="">Option 1</option>
+                                        <option value="">Option 2</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 px-2">
+                                    <select>
+                                        <option value="">Guest</option>
+                                        <option value="">Option 1</option>
+                                        <option value="">Option 2</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-12 px-2 text-center">
+                                    <textarea placeholder="Message"></textarea>
+                                    <button type="submit" class="site-btn">Enviar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Request Form Section End -->
+
+    <!-- Latest Blog Section Begin -->
+    <section class="latest spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Nuestro Blog</h2>
+                        <img src="../static/front/img/icon/ti.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for blo in blog %}
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="latest__item">
+                            <img width="360px" height="240px" src="{% thumbnail blo.image 750x0 crop %}" alt="">
+                            <ul>
+                                <li>{{ blo.title }}</li>
+                                <li>{{ blo.created_at }}</li>
+
+                            </ul>
+                            <h4><a href="#">{{ blo.descripcion|safe|truncatechars:40 }}</a></h4>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- Latest Blog Section End -->
+{% endblock %}
+<!-- Logo Begin -->
+<div class="logo">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="logo__carousel owl-carousel">
+                    {% for spo in sponsor %}
+                        <div class="logo__item">
+                            <a href="#"><img height="60px" width="120px" src="/{{ spo.image }}" alt=""></a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Logo End -->
+
+<!-- Footer Section Begin -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__top">
+            <div class="row">
+                <div class="col-lg-8 col-md-6">
+                    <div class="footer___subscribe">
+                        <div class="footer__subscribe__text">
+                            <h4>Newsletter Subscribe</h4>
+                            <p>Signup and recive 10% of your wedding!</p>
+                        </div>
+                        <div class="footer__subscribe__form">
+                            <form action="#">
+                                <input type="text" placeholder="Email">
+                                <button type="submit"><i class="fa fa-send-o"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer__social">
+                        {% if general.face %}
+                            <a target="_blank" href="{{ general.face }}"><i class="fa fa-facebook"></i></a>
+                        {% endif %}
+                        {% if general.twit %}
+                            <a target="_blank" href="{{ general.twit }}"><i class="fa fa-twitter"></i></a>
+                        {% endif %}
+                        {% if general.inst %}
+                            <a target="_blank" href="{{ general.inst }}"><i class="fa fa-instagram"></i></a>
+                        {% endif %}
+                        {% if general.yout %}
+                            <a target="_blank" href="{{ general.yout }}"><i class="fa fa-youtube"></i></a>
+                        {% endif %}
+                        {% if general.link %}
+                            <a target="_blank" href="{{ general.link }}"><i class="fa fa-linkedin"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="footer__logo">
+                    <a href="#"><img src="../static/front/img/footer-logo.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h5>Horario</h5>
+                    <ul>
+                        <li>{{ general.horario }}</li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h5>Teléfono y Correo</h5>
+                    <ul>
+                        <li>{{ general.phone }}</li>
+                        <li>{{ general.email }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h5>Dirección</h5>
+                    <p>{{ general.address }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer__copyright">
+            <div class="row">
+                <div class="col-lg-7 col-md-7">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <p class="footer__copyright__text">Copyright &copy;<script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                        All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                                                            aria-hidden="true"></i> by <a
+                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                    </p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    <ul class="footer__copyright__widget">
+                        <li><a href="#">Terms & Use</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Search model Begin -->
+
+<!-- Search model end -->
+
+<!-- Js Plugins -->
+<script src="{% static 'front/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'front/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'front/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'front/js/mixitup.min.js' %}"></script>
+<script src="{% static 'front/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'front/js/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'front/js/masonry.pkgd.min.js' %}"></script>
+<script src="{% static 'front/js/jquery.slicknav.js' %}"></script>
+<script src="{% static 'front/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'front/js/main.js' %}"></script>
+<script src="{% static 'sweetalert2/sweetalert2.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+<script>
+    baguetteBox.run('.tz-gallery');
+</script>
+{% load sweetify %}
+{% sweetify %}
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block servicio_active %}
+    <li class="active"><a href="{% url 'services' %}">Servicios</a></li>
+{% endblock %}
+
+{% block content %}
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option set_bg" style="background-image: url(/{{ general.image_banner_2 }});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: top center;
+            height: 600px">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h2>Servicios</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Services Section Begin -->
+    <section class="services spad">
+        <div class="container">
+            <div class="row">
+               {% for serv in services %}
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div style="height: 280px; cursor: pointer" data-toggle="modal" data-placement="top" href="#service{{ serv.pk }}" class="services__item">
+                        <img  height="70px" width="70px" src="{% thumbnail serv.image 750x0 crop %}" alt="">
+                        <h4>{{ serv.name }}</h4>
+                        <p>{{ serv.text|safe|truncatechars:100 }}</p>
+                    </div>
+                </div>
+                    <div class="modal fade" id="service{{ serv.pk }}" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="width: 600px">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true"></span>
+                                        <a class="icon_close"></a>
+                                    </button>
+                                    <h2 class="modal-title" id="myModalLabel">
+                                         {{ serv.name }}
+                                    </h2>
+                                    <h3 class="modal-title" style="color: #666666" id="myModalLabel">
+                                        <img height="200px" width="250px" src="{% thumbnail serv.image 750x0 crop %}" alt="">
+                                    </h3>
+                                    <div class="modal-body">
+                                        <p>
+                                            {{ serv.text|safe }}
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer" style="color: #a3a698">
+                                        <a class="primary-btn" style="cursor: pointer; color: white"  data-dismiss="modal">Cerrar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     {% endfor %}
+
+            </div>
+        </div>
+    </section>
+    <!-- Services Section End -->
+
+    <!-- Pricing Section Begin -->
+    <section class="pricing spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Precios de Planes</h2>
+                        <img src="../static/front/img/icon/ti.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for plan in planes %}
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="pricing__item" style="height: 459px">
+                            <h5>{{ plan.name }}</h5>
+                            <h2>${{ plan.price }} {{ plan.moneda }}</h2>
+                            <img src="../static/front/img/icon/pricing-icon.png" alt="">
+                            <ul>
+                                <li>{{ plan.descripcion|safe|truncatechars:100 }}</li>
+                            </ul>
+                            <a data-toggle="modal" data-placement="top" href="#ver{{ plan.pk }}" title="Ver más"
+                               class="primary-btn">Ver más</a>
+                        </div>
+                        <div class="modal fade" id="ver{{ plan.pk }}" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="width: 600px">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true"></span>
+                                        <a class="icon_close"></a>
+                                    </button>
+                                    <h2 class="modal-title" id="myModalLabel">
+                                         {{ plan.name }}
+                                    </h2>
+                                    <h3 class="modal-title" style="color: #666666" id="myModalLabel">
+                                        ${{ plan.price }} {{ plan.moneda }}
+                                    </h3>
+                                    <div class="modal-body">
+                                        <p>
+                                            {{ plan.descripcion|safe }}
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer" style="color: #a3a698">
+                                        <a class="primary-btn" style="cursor: pointer; color: white"  data-dismiss="modal">Cerrar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section End -->
+
+    <!-- Request Form Section Begin -->
+    <section class="request request--services spad">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-7">
+                    <div class="request__form">
+                        <div class="section-title">
+                            <span>{{ general.text_1_solicitud }}</span>
+                            <h2>{{ general.text_2_solicitud }}</h2>
+                            <p>{{ general.text_3_solicitud }}</p>
+                        </div>
+                        <form action="#">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 px-2">
+                                    <input required type="text" placeholder="Name">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 px-2">
+                                    <input required type="email" placeholder="Email">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 px-2">
+                                    <select>
+                                        <option value="">Services</option>
+                                        <option value="">option 1</option>
+                                        <option value="">option 2</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 px-2">
+                                    <select>
+                                        <option value="">Guest</option>
+                                        <option value="">option 1</option>
+                                        <option value="">option 2</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-12 px-2 text-center">
+                                    <textarea placeholder="Message"></textarea>
+                                    <button type="submit" class="site-btn">Enviar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Request Form Section End -->
+{% endblock %}
+

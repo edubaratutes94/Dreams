@@ -1,0 +1,12 @@
+{% load i18n %}
+{% autoescape off %}
+Hola: Ha recibido un mensaje de: {{ mensaje.name }}
+
+con Correo: {{ mensaje.email }}
+
+Mensaje: {{ mensaje.text }}
+
+Gracias por usar nuestro sitio!
+
+{% endautoescape %}
+
