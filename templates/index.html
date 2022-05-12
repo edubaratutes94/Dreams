@@ -43,7 +43,13 @@
         <div class="row">
             <div class="col-lg-2 col-md-2">
                 <div class="header__logo">
-                    <a href="{% url 'home' %}"><img src="../static/front/img/logo.png" alt=""></a>
+                    <a style="font-family: 'Spectral', serif;
+                        font-size: 38px;
+                        color: #121212;
+                        font-style: italic;
+                        width: 100%;
+                        padding:0"
+                       href="{% url 'home' %}">{{ general.name }}</a>
                 </div>
             </div>
             <div class="col-lg-8 col-md-9">
@@ -55,18 +61,19 @@
                         {% block servicio_active %}
                             <li><a href="{% url 'services' %}">Servicios</a></li>
                         {% endblock %}
-
-                        <li><a href="./portfolio.html">Portafolio</a></li>
+                        {% block portafolio_active %}
+                            <li><a href="{% url 'galery' %}">Portafolio</a></li>
+                        {% endblock %}
                         {% block nosotros_active %}
-                        <li><a href="#">Nosotros</a>
-                            <ul class="dropdown">
-                                <li><a href="./about.html">Quiénes somos</a></li>
-                                <li><a href="{% url 'team' %}">Equipo</a></li>
-                            </ul>
-                        </li>
-                            {% endblock %}
+                            <li><a href="#">Nosotros</a>
+                                <ul class="dropdown">
+                                    <li><a href="{% url 'about' %}">Quiénes somos</a></li>
+                                    <li><a href="{% url 'team' %}">Equipo</a></li>
+                                </ul>
+                            </li>
+                        {% endblock %}
                         {% block blog_active %}
-                            <li><a href="{% url 'blog' 1 %}">Blog</a></li>
+                            <li><a href="{% url 'blog' 1%}">Blog</a></li>
                         {% endblock %}
 
                         {% block contacto_active %}
@@ -131,14 +138,39 @@
             </div>
             <div class="row">
                 {% for serv in services %}
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div style="height: 280px" class="services__item">
-                            <img height="70px" width="70px" src="{% thumbnail serv.image 750x0 crop %}" alt="">
-                            <h4>{{ serv.name }}</h4>
-                            <p>{{ serv.text|safe|truncatechars:100 }}</p>
-                        </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div style="height: 280px; cursor: pointer" data-toggle="modal" data-placement="top" href="#service{{ serv.pk }}" class="services__item">
+                        <img  height="70px" width="70px" src="{% thumbnail serv.image 750x0 crop %}" alt="">
+                        <h4>{{ serv.name }}</h4>
+                        <p>{{ serv.text|safe|truncatechars:100 }}</p>
                     </div>
-                {% endfor %}
+                </div>
+                    <div class="modal fade" id="service{{ serv.pk }}" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="width: 600px">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true"></span>
+                                        <a class="icon_close"></a>
+                                    </button>
+                                    <h2 class="modal-title" id="myModalLabel">
+                                         {{ serv.name }}
+                                    </h2>
+                                    <h3 class="modal-title" style="color: #666666" id="myModalLabel">
+                                        <img height="200px" width="250px" src="{% thumbnail serv.image 750x0 crop %}" alt="">
+                                    </h3>
+                                    <div class="modal-body">
+                                        <p>
+                                            {{ serv.text|safe }}
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer" style="color: #a3a698">
+                                        <a class="primary-btn" style="cursor: pointer; color: white"  data-dismiss="modal">Cerrar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     {% endfor %}
             </div>
         </div>
     </section>
@@ -155,57 +187,29 @@
                     </div>
                     <ul class="filter__controls">
                         <li class="active" data-filter="*">All</li>
-                        <li data-filter=".couple">Couple</li>
-                        <li data-filter=".event">Event</li>
-                        <li data-filter=".music">Music Live</li>
-                        <li data-filter=".honeymoon">Honeymoon</li>
-                        <li data-filter=".photography">Photography</li>
+                         {% for tip in tipo %}
+                        <li data-filter=".{{ tip.name }}">{{ tip.name }}</li>
+                         {% endfor %}
                     </ul>
                 </div>
             </div>
             <div class="feature__gallery">
                 <div class="grid-sizer"></div>
-                <div class="fg__item photography set-bg" data-setbg="img/features/feature-1.jpg">
+                {% for gal in fotos %}
+                <div class="fg__item {{ gal.tipo.name }}" style="background-image: url({{ gal.image }});
+                        background-size: cover;
+                        background-position: top center">
                     <div class="fg__item__text">
-                        <span>Ceremonies</span>
-                        <h2>Christina & Evelyn</h2>
+                        <span>{{ gal.text }}</span>
+                        <h2>{{ gal.title }}</h2>
                     </div>
                 </div>
-                <div class="fg__item honeymoon mid_item set-bg" data-setbg="img/features/feature-2.jpg">
-                    <div class="fg__item__text">
-                        <span>Ceremonies</span>
-                        <h2>Christina & Evelyn</h2>
-                    </div>
-                </div>
-                <div class="fg__item music large_item set-bg" data-setbg="{{ dsd }}">
-                    <div class="fg__item__text">
-                        <span>Ceremonies</span>
-                        <h2>Christina & Evelyn</h2>
-                    </div>
-                </div>
-                <div class="fg__item event large_item set-bg" data-setbg="img/features/feature-4.jpg">
-                    <div class="fg__item__text">
-                        <span>Ceremonies</span>
-                        <h2>Christina & Evelyn</h2>
-                    </div>
-                </div>
-                <div class="fg__item couple mid_item set-bg" data-setbg="img/features/feature-5.jpg">
-                    <div class="fg__item__text">
-                        <span>Ceremonies</span>
-                        <h2>Christina & Evelyn</h2>
-                    </div>
-                </div>
-                <div class="fg__item photography set-bg" data-setbg="img/features/feature-6.jpg">
-                    <div class="fg__item__text">
-                        <span>Ceremonies</span>
-                        <h2>Christina & Evelyn</h2>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="load__more">
-                        <a href="#" class="primary-btn">Ver mas</a>
+                        <a href="{% url 'galery' %}" class="primary-btn">Ver más</a>
                     </div>
                 </div>
             </div>
@@ -242,30 +246,22 @@
                             <h2>{{ general.text_2_solicitud }}</h2>
                             <p>{{ general.text_3_solicitud }}</p>
                         </div>
-                        <form action="#">
+                      <form id="form-submit" action="." method="post">{% csrf_token %}
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 px-2">
-                                    <input required type="text" placeholder="Name">
+                                     {{ form.full_name }}
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 px-2">
-                                    <input required type="email" placeholder="Email">
+                                     {{ form.email }}
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 px-2">
-                                    <select>
-                                        <option value="">Services</option>
-                                        <option value="">Option 1</option>
-                                        <option value="">Option 2</option>
-                                    </select>
+                                        {{ form.servicio }}
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 px-2">
-                                    <select>
-                                        <option value="">Guest</option>
-                                        <option value="">Option 1</option>
-                                        <option value="">Option 2</option>
-                                    </select>
+                                     {{ form.phone }}
                                 </div>
                                 <div class="col-lg-12 px-2 text-center">
-                                    <textarea placeholder="Message"></textarea>
+                                     {{ form.text }}
                                     <button type="submit" class="site-btn">Enviar</button>
                                 </div>
                             </div>
@@ -368,7 +364,11 @@
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-6">
                 <div class="footer__logo">
-                    <a href="#"><img src="../static/front/img/footer-logo.png" alt=""></a>
+                    <a style="font-family: 'Spectral', serif;
+                        font-size: 38px;
+                        color: #ffffff;
+                        font-style: italic;
+                        width: 100%;" href="#">{{ general.name }}</a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">

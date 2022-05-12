@@ -24,6 +24,8 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('services/', views.services, name='services'),
     path('team/', views.team, name='team'),
-    path('blog-list/<int:index>', views.blog, name='blog'),
-    path('blog-list/detalle/<int:id>', views.blog_detail, name="blog-detail"),
+    path('about/', views.about, name='about'),
+    path('galery/', views.galery, name='galery'),
+    path('blog-list/<int:index>', views.blogs, name='blog'),
+    path('blog-list/detalle/<int:pk>', views.blog_detail, name="blog-detail"),
 ]

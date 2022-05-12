@@ -46,7 +46,7 @@
                         </div>
                         <div class="blog__item__text">
                             <p>{{ blo.descripcion|safe|truncatechars:200 }} </p>
-                            <a href="{% url 'blog-detail' blo.id %}">LEER MÁS</a>
+                            <a href="{% url 'blog-detail' blo.pk %}">LEER MÁS</a>
                         </div>
                     </div>
                     {% endfor %}

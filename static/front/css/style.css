@@ -356,7 +356,7 @@ ol {
 }
 
 .header__logo {
-  padding: 30px 0;
+  padding: 10px 0;
 }
 .header__logo a {
   display: inline-block;
@@ -2309,7 +2309,6 @@ transition: opacity 400ms ease-in;
   .fg__item {
     width: 100%;
     margin-right: 0;
-    float: none;
   }
 
   .grid-sizer {

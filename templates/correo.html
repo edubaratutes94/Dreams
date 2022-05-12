@@ -1,0 +1,15 @@
+{% load i18n %}
+{% autoescape off %}
+Hola: Se ha realizado una solicitud a nombre de: {{ reserva.full_name }}
+
+con Teléfono: {{ reserva.phone }} y Correo: {{ reserva.email }}
+
+Servicio solicitado: {{ reserva.servicio }}
+
+Mensaje: {{ reserva.text }}
+
+Gracias por usar nuestro sitio!
+
+{% endautoescape %}
+
+

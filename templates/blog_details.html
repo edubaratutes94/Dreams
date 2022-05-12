@@ -72,16 +72,26 @@
                         <div class="blog__details__btns">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <a href="#" class="blog__details__btns__item">
+                                            {% if the_prev %}
+                                    <a href="{{ the_prev.get_absolute_url }}" class="blog__details__btns__item">
                                         <i class="fa fa-angle-left"></i>
-                                        Previous posts
+                                        Anterior
                                     </a>
+                                    {% else %}
+                                    No más
+                                    {% endif %}
+
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <a href="#" class="blog__details__btns__item blog__details__btns__item--next">
-                                        Next posts
+                                        {% if the_next %}
+                                    <a href="{{ the_next.get_absolute_url }}" class="blog__details__btns__item blog__details__btns__item--next">
+                                        Siguiente
                                         <i class="fa fa-angle-right"></i>
                                     </a>
+                                     {% else %}
+                                    No más
+                                    {% endif %}
+
                                 </div>
                             </div>
                         </div>

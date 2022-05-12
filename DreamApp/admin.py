@@ -30,7 +30,7 @@ admin.site.register(General, AdminGeneral)
 
 
 class AdminBlog(admin.ModelAdmin):
-    list_display = ["title", 'active']
+    list_display = ["title", 'active', "created_at"]
     list_display_links = ["title"]
     list_filter = ["title"]
     list_editable = ["active"]
@@ -128,9 +128,10 @@ admin.site.register(Tipo_galery, AdminTipoGalery)
 
 
 class AdminGalery(admin.ModelAdmin):
-    list_display = ["title"]
+    list_display = ["title", 'active']
     list_display_links = ["title"]
     list_filter = ["title"]
+    list_editable = ["active"]
     list_per_page = 5
 
     class Meta:
@@ -140,7 +141,7 @@ admin.site.register(Galery, AdminGalery)
 
 
 class AdminSolicitud(admin.ModelAdmin):
-    list_display = ['full_name', 'tipo_servicio', 'phone']
+    list_display = ['full_name', 'servicio', 'phone', "created_at"]
     list_display_links = ["full_name", 'phone']
     list_filter = ['phone', 'full_name']
     list_per_page = 10
@@ -174,7 +175,7 @@ class AdminOpinion(admin.ModelAdmin):
 admin.site.register(Opinion, AdminOpinion)
 
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ["name", 'email']
+    list_display = ["name", 'email', "created_at"]
     list_display_links = ["name", 'email']
     list_filter = ['email']
     list_per_page = 10

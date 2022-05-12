@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from ckeditor.fields import RichTextField
-
-
+from django.shortcuts import reverse
 # Create your models here.
 
 class General(models.Model):
@@ -40,10 +39,8 @@ class General(models.Model):
     def __str__(self):
         return str(self.name)
 
-
-
 class Blog(models.Model):
-    created_at = models.DateField(verbose_name="Creado", auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="creado")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Modificado")
     title = models.CharField(max_length=255, verbose_name="Título")
     text_small = models.CharField(max_length=255, verbose_name="Texto pequeño", blank=True, null=True)
@@ -54,8 +51,12 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('blog-detail', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name_plural = "B. Blog"
+
 
 class Galery_blog(models.Model):
     created_at = models.DateField(verbose_name="Creado", auto_now_add=True)
@@ -135,6 +136,7 @@ class Galery(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Modificado")
     title = models.CharField(max_length=255, verbose_name="Título")
     text = models.CharField(max_length=255, verbose_name="Texto")
+    active = models.BooleanField(verbose_name="Visible en inicio", default=False)
     image = models.ImageField(upload_to="static/upload", verbose_name="Imagen", null=True)
     tipo = models.ForeignKey(Tipo_galery, models.CASCADE, verbose_name="Tipo de Galería")
 
@@ -144,19 +146,6 @@ class Galery(models.Model):
     class Meta:
         verbose_name_plural = "I. Galería"
 
-class Solicitud(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="created_at")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="updated_at")
-    email = models.EmailField(max_length=255,verbose_name="Email")
-    phone = models.CharField(max_length=255, verbose_name="Teléfono", default='')
-    full_name = models.CharField(max_length=255, verbose_name="Nombre Completo")
-    tipo_servicio = models.CharField(max_length=255, verbose_name="Tipo de Servicio")
-    text = models.TextField(verbose_name="Mensaje")
-    def __str__(self):
-        return self.full_name
-
-    class Meta:
-        verbose_name_plural = "J. Solicitudes"
 
 class Service(models.Model):
     created_at = models.DateField(verbose_name="Creado", auto_now_add=True)
@@ -170,6 +159,20 @@ class Service(models.Model):
     class Meta:
         verbose_name_plural = "K. Servicios"
 
+class Solicitud(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="created_at")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="updated_at")
+    email = models.EmailField(max_length=255,verbose_name="Email")
+    phone = models.CharField(max_length=255, verbose_name="Teléfono", default='')
+    full_name = models.CharField(max_length=255, verbose_name="Nombre Completo")
+    servicio = models.ForeignKey(Service, models.CASCADE, verbose_name="Tipo de Servicio")
+    text = models.TextField(verbose_name="Mensaje")
+    def __str__(self):
+        return self.servicio.name
+
+
+    class Meta:
+        verbose_name_plural = "J. Solicitudes"
 
 class Team(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="created_at")
@@ -192,7 +195,7 @@ class Opinion(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="created_at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="updated_at")
     name = models.CharField(max_length=255, verbose_name="Nombre Completo")
-    text = models.TextField(verbose_name="Texto")
+    text = RichTextField(verbose_name="Texto")
 
     def __str__(self):
         return self.name
