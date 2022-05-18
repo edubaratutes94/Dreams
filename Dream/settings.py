@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'DreamApp.apps.DreamappConfig',
-    'django_social_share',
     'easy_thumbnails',
     'sweetify',
     'ckeditor',
