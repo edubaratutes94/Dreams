@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__text">
-                        <h2>Blogs</h2>
+                        <h2>Blog</h2>
                     </div>
                 </div>
             </div>
@@ -39,9 +39,9 @@
                             <h2>{{ blo.title }}</h2>
                         </div>
                         <div class="blog__item__pic__slider owl-carousel">
-                            <img height="440px" src="/{{ blo.image }}">
+                            <img height="440px" src="{% thumbnail blo.image 750x0 crop %}">
                             {% for img in blo.galery_blog_set.all %}
-                            <img height="440px" src="/{{ img.image }}">
+                            <img height="440px" src="{% thumbnail img.image 750x0 crop %}">
                             {% endfor %}
                         </div>
                         <div class="blog__item__text">
@@ -84,7 +84,7 @@
                                  {% for dest in destacado %}
                                 <a href="{% url 'blog-detail' dest.id %}" class="blog__sidebar__recent__item">
                                     <div class="blog__sidebar__recent__item__pic">
-                                        <img width="80px" height="80px" src="/{{ dest.image }}" alt="">
+                                        <img width="80px" height="80px" src="{% thumbnail dest.image 750x0 crop %}" alt="">
                                     </div>
                                     <div class="blog__sidebar__recent__item__text">
                                         <h5>{{ dest.title|safe|truncatechars:45 }}</h5>

@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
 {% load static %}
 {% load thumbnail %}
+{% load social_share %}
 {% block blog_active %}
     <li class="active"><a href="{% url 'blog' 1%}">Blog</a></li>
 {% endblock %}
@@ -38,7 +39,7 @@
                                 <h2>{{ blog.title }}</h2>
                             </div>
                             <div class="blog__item__pic set_bg">
-                                 <img height="440px" width="750px" src="/{{ blog.image }}">
+                                 <img height="440px" width="750px" src="{% thumbnail blog.image 750x0 crop %}">
                             </div>
                             <div class="blog__item__text">
                                 <p>{{ blog.descripcion|safe }} </p>
@@ -49,8 +50,8 @@
             <div class="blog__details__pic">
                 <div class="tz-gallery">
                     {% for img in blog.galery_blog_set.all %}
-                <a class="image" href="/{{ img.image }}">
-                    <img src="/{{ img.image }}" alt="..." width="250px" height="200px">
+                <a class="image" href="{% thumbnail img.image 750x0 crop %}">
+                    <img src="{% thumbnail img.image 750x0 crop %}" alt="..." width="250px" height="200px">
                 </a>
                     {% endfor %}
                 </div>
@@ -61,14 +62,14 @@
                                 <div class="col-lg-6">
                                     <div class="blog__details__social">
                                         <span><i class="fa fa-share"></i> Compartir</span>
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                        <a href="#"><i class="fa fa-instagram"></i></a>
-                                        <a href="#"><i class="fa fa-dribbble"></i></a>
+                                           <a target="_blank" href="https://twitter.com/intent/tweet?text={{ blog.title }}&url={{ request.build_absolute_uri }}"><i class="fa fa-twitter"></i></a>
+                                           <a target="_blank" href="https://www.facebook.com/share.php?u={{ request.build_absolute_uri }}&title={{ blog.title }}"><i class="fa fa-facebook"></i></a>
+                                           <a target="_blank" href=" http://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ blog.title }}"><i class="fa fa-linkedin"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="blog__details__btns">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
@@ -101,7 +102,7 @@
                                 {% for blog in blogs %}
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="blog__details__recent__item">
-                                        <img width="230px" height="153px" src="/{{ blog.image }}" alt="">
+                                        <img width="230px" height="153px" src="{% thumbnail blog.image 750x0 crop %}" alt="">
                                         <h5><a href="{% url 'blog-detail' blog.id %}">{{ blog.title }} </a></h5>
                                         <span>{{ blog.created_at }}</span>
                                     </div>
@@ -120,7 +121,7 @@
                                  {% for dest in destacado %}
                                 <a href="{% url 'blog-detail' dest.id %}" class="blog__sidebar__recent__item">
                                     <div class="blog__sidebar__recent__item__pic">
-                                        <img width="80px" height="80px" src="/{{ dest.image }}" alt="">
+                                        <img width="80px" height="80px" src="{% thumbnail dest.image 750x0 crop %}" alt="">
                                     </div>
                                     <div class="blog__sidebar__recent__item__text">
                                         <h5>{{ dest.title|safe|truncatechars:45 }}</h5>
@@ -138,5 +139,6 @@
             </div>
         </div>
     </section>
+
     <!-- Blog Details Section End -->
 {% endblock %}

@@ -294,7 +294,7 @@
                                 <li>{{ blo.created_at }}</li>
 
                             </ul>
-                            <h4><a href="#">{{ blo.descripcion|safe|truncatechars:40 }}</a></h4>
+                            <h4><a href="{% url 'blog-detail' blo.pk %}">{{ blo.descripcion|safe|truncatechars:40 }}</a></h4>
                         </div>
                     </div>
                 {% endfor %}
@@ -311,7 +311,7 @@
                 <div class="logo__carousel owl-carousel">
                     {% for spo in sponsor %}
                         <div class="logo__item">
-                            <a href="#"><img height="60px" width="120px" src="/{{ spo.image }}" alt=""></a>
+                            <a href="#"><img height="60px" width="120px" src="{% thumbnail spo.image 750x0 crop %}" alt=""></a>
                         </div>
                     {% endfor %}
                 </div>

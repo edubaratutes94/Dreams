@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from DreamApp import models, forms
 from Dream import settings
 import sweetify
@@ -44,7 +44,7 @@ def home(request):
     return render(request, 'inicio.html',
                   {'services': services, 'info': info, 'blog': blog, 'sponsor': sponsor, 'fotos': fotos, 'tipo': tipo})
 
-from django.shortcuts import get_object_or_404
+
 def services(request):
     if request.POST:
         form = forms.SolicitudForm(request.POST)
@@ -88,7 +88,7 @@ def blogs(request, index):
         page_obj = paginator.page(paginator.num_pages)
     # page_obj = paginator.get_page(page_number)
     destacado = models.Blog.objects.filter(active=True).all()
-    return render(request, 'blog.html', {'page_obj': page_obj, 'destacado': destacado, })
+    return render(request, 'blog.html', {'page_obj': page_obj, 'destacado': destacado })
 
 
 def blog_detail(request, pk):
