@@ -148,7 +148,7 @@
                     <div class="modal fade" id="service{{ serv.pk }}" tabindex="-1" role="dialog"
                              aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
-                                <div class="modal-content" style="width: 600px">
+                                <div class="modal-content" style="width: 600px;padding: 20px">
                                     <button type="button" class="close" data-dismiss="modal">
                                         <span aria-hidden="true"></span>
                                         <a class="icon_close"></a>
@@ -186,9 +186,9 @@
                         <img src="../static/front/img/icon/ti.png" alt="">
                     </div>
                     <ul class="filter__controls">
-                        <li class="active" data-filter="*">All</li>
+                        <li class="active" data-filter="*">Todas</li>
                          {% for tip in tipo %}
-                        <li data-filter=".{{ tip.name }}">{{ tip.name }}</li>
+                        <li data-filter=".filter{{ tip.id }}">{{ tip.name }}</li>
                          {% endfor %}
                     </ul>
                 </div>
@@ -196,7 +196,7 @@
             <div class="feature__gallery">
                 <div class="grid-sizer"></div>
                 {% for gal in fotos %}
-                <div class="fg__item {{ gal.tipo.name }}" style="background-image: url({{ gal.image }});
+                <div class="fg__item filter{{ gal.tipo.id }}" style="background-image: url({{ gal.image }});
                         background-size: cover;
                         background-position: top center">
                     <div class="fg__item__text">
@@ -411,10 +411,54 @@
                 </div>
                 <div class="col-lg-5 col-md-5">
                     <ul class="footer__copyright__widget">
-                        <li><a href="#">Terms & Use</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a style="height: 280px; cursor: pointer" data-toggle="modal" data-placement="top" href="#term">Terms & Use</a></li>
+                        <li><a style="height: 280px; cursor: pointer" data-toggle="modal" data-placement="top" href="#privacy">Privacy Policy</a></li>
                     </ul>
                 </div>
+                <div class="modal fade" id="term" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="width: 600px;padding: 20px">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true"></span>
+                                        <a class="icon_close"></a>
+                                    </button>
+                                    <h2 class="modal-title" id="myModalLabel">
+                                         Terms & Use
+                                    </h2>
+                                    <div class="modal-body">
+                                        <p>
+                                            {{ general.term_use|safe }}
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer" style="color: #a3a698">
+                                        <a class="primary-btn" style="cursor: pointer; color: white"  data-dismiss="modal">Cerrar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                <div class="modal fade" id="privacy" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="width: 600px;padding: 20px">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true"></span>
+                                        <a class="icon_close"></a>
+                                    </button>
+                                    <h2 class="modal-title" id="myModalLabel">
+                                         Privacy Policy
+                                    </h2>
+                                    <div class="modal-body">
+                                        <p>
+                                            {{ general.policity_privacity|safe }}
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer" style="color: #a3a698">
+                                        <a class="primary-btn" style="cursor: pointer; color: white"  data-dismiss="modal">Cerrar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
             </div>
         </div>
     </div>
@@ -436,6 +480,7 @@
 <script src="{% static 'front/js/jquery.slicknav.js' %}"></script>
 <script src="{% static 'front/js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'front/js/main.js' %}"></script>
+
 <script src="{% static 'sweetalert2/sweetalert2.min.js' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
 <script>

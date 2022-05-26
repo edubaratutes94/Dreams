@@ -15,4 +15,3 @@ def general(context):
             'form': form,
             'x': y,
             }
-

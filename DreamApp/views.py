@@ -39,7 +39,7 @@ def home(request):
     info = models.Info_extra.objects.all()
     sponsor = models.Sponsor.objects.all()
     blog = models.Blog.objects.order_by("-id").all()[:3]
-    tipo = models.Tipo_galery.objects.filter(galery__active=True).all()
+    tipo = models.Tipo_galery.objects.filter(active=True).all()
     fotos = models.Galery.objects.filter(active=True).all()[:6]
     return render(request, 'inicio.html',
                   {'services': services, 'info': info, 'blog': blog, 'sponsor': sponsor, 'fotos': fotos, 'tipo': tipo})

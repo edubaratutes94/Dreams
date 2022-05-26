@@ -11,7 +11,7 @@ class AdminGeneral(admin.ModelAdmin):
             'fields': (
                 'name', 'slogan_1', 'slogan_2', 'slogan_3', 'text_1_solicitud', 'text_2_solicitud', 'text_3_solicitud',
                 'text_portafolio_inicio',
-                'text_1_about', 'descripcion_about')
+                'text_1_about', 'descripcion_about','policity_privacity','term_use' )
         }),
         ('Fotos dinámicas', {
             'fields': ('image_banner_1', 'image_banner_2', 'image_about')
@@ -116,9 +116,10 @@ admin.site.register(Planes, AdminPlan)
 
 
 class AdminTipoGalery(admin.ModelAdmin):
-    list_display = ["name"]
+    list_display = ["name", "active"]
     list_display_links = ["name"]
     list_filter = ["name"]
+    list_editable = ["active"]
     list_per_page = 5
 
     class Meta:

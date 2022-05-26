@@ -33,11 +33,11 @@
 
             var filterData = $(this).attr("data-filter");
 
-            $(".feature__gallery").isotope({
+        $(".feature__gallery").isotope({
                 filter: filterData,
             });
 
-            $(".filter__controls li").removeClass('active');
+        $(".filter__controls li").removeClass('active');
             $(this).addClass('active');
 
         });

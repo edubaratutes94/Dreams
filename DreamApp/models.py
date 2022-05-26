@@ -20,6 +20,8 @@ class General(models.Model):
                                       help_text="Titulo de la página Nosotros", blank=True,
                                       null=True)
     descripcion_about = RichTextField(verbose_name="Descripcion de Nosotros",help_text="Descripción de la Página Nosotros")
+    policity_privacity = RichTextField(verbose_name="Politica y Privacidad",help_text="Descripción de la Politica y la Privacidad")
+    term_use = RichTextField(verbose_name="Terminos y Uso",help_text="Descripción de los terminos y Uso")
     image_about = models.ImageField(upload_to='static/upload', verbose_name="Imagen de nosotros",help_text="Imagen de la página Nosotros")
     image_banner_2 = models.ImageField(upload_to='static/upload', verbose_name="Imagen Banner Otras Vistas",help_text="Imagen del Banner en el resto de las vistas")
     address = models.CharField(max_length=255, verbose_name="Direccion", blank=True, null=True)
@@ -125,6 +127,7 @@ class Tipo_galery(models.Model):
     created_at = models.DateField(verbose_name="Creado", auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Modificado")
     name = models.CharField(max_length=255, verbose_name="Nombre")
+    active = models.BooleanField(verbose_name="Visible en inicio", default=False)
 
     def __str__(self):
         return self.name
