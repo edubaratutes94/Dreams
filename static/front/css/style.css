@@ -1929,6 +1929,7 @@ transition: opacity 400ms ease-in;
 -----------------------*/
 .map {
   height: 500px;
+
 }
 .map iframe {
   width: 100%;

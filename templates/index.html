@@ -38,22 +38,21 @@
 </div>
 
 <!-- Header Section Begin -->
-<header class="header">
+<header class="header" style="z-index: 1">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-2 col-md-2">
-                <div class="header__logo">
+                <div class="header__logo" style="width: 300px">
                     <a style="font-family: 'Spectral', serif;
                         font-size: 38px;
                         color: #121212;
                         font-style: italic;
-                        width: 100%;
-                        padding:0"
+                        "
                        href="{% url 'home' %}">{{ general.name }}</a>
                 </div>
             </div>
             <div class="col-lg-8 col-md-9">
-                <nav class="header__menu mobile-menu">
+                <nav class="header__menu mobile-menu" style="padding-left: 90px">
                     <ul>
                         {% block inicio_active %}
                             <li><a href="{% url 'home' %}">Inicio</a></li>
@@ -324,43 +323,6 @@
 <!-- Footer Section Begin -->
 <footer class="footer">
     <div class="container">
-        <div class="footer__top">
-            <div class="row">
-                <div class="col-lg-8 col-md-6">
-                    <div class="footer___subscribe">
-                        <div class="footer__subscribe__text">
-                            <h4>Newsletter Subscribe</h4>
-                            <p>Signup and recive 10% of your wedding!</p>
-                        </div>
-                        <div class="footer__subscribe__form">
-                            <form action="#">
-                                <input type="text" placeholder="Email">
-                                <button type="submit"><i class="fa fa-send-o"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="footer__social">
-                        {% if general.face %}
-                            <a target="_blank" href="{{ general.face }}"><i class="fa fa-facebook"></i></a>
-                        {% endif %}
-                        {% if general.twit %}
-                            <a target="_blank" href="{{ general.twit }}"><i class="fa fa-twitter"></i></a>
-                        {% endif %}
-                        {% if general.inst %}
-                            <a target="_blank" href="{{ general.inst }}"><i class="fa fa-instagram"></i></a>
-                        {% endif %}
-                        {% if general.yout %}
-                            <a target="_blank" href="{{ general.yout }}"><i class="fa fa-youtube"></i></a>
-                        {% endif %}
-                        {% if general.link %}
-                            <a target="_blank" href="{{ general.link }}"><i class="fa fa-linkedin"></i></a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-6">
                 <div class="footer__logo">
@@ -368,8 +330,10 @@
                         font-size: 38px;
                         color: #ffffff;
                         font-style: italic;
-                        width: 100%;" href="#">{{ general.name }}</a>
+                        width: 100%;" href="{% url 'home' %}">{{ general.name }}</a>
+
                 </div>
+
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">
                 <div class="footer__widget">
@@ -394,6 +358,23 @@
                     <h5>Dirección</h5>
                     <p>{{ general.address }}</p>
                 </div>
+                   <div class="footer__social">
+                        {% if general.face %}
+                            <a target="_blank" href="{{ general.face }}"><i class="fa fa-facebook"></i></a>
+                        {% endif %}
+                        {% if general.twit %}
+                            <a target="_blank" href="{{ general.twit }}"><i class="fa fa-twitter"></i></a>
+                        {% endif %}
+                        {% if general.inst %}
+                            <a target="_blank" href="{{ general.inst }}"><i class="fa fa-instagram"></i></a>
+                        {% endif %}
+                        {% if general.yout %}
+                            <a target="_blank" href="{{ general.yout }}"><i class="fa fa-youtube"></i></a>
+                        {% endif %}
+                        {% if general.link %}
+                            <a target="_blank" href="{{ general.link }}"><i class="fa fa-linkedin"></i></a>
+                        {% endif %}
+                    </div>
             </div>
         </div>
         <div class="footer__copyright">

@@ -15,3 +15,5 @@ def general(context):
             'form': form,
             'x': y,
             }
+
+# // toLowerCase().replace(/\s/g,"-"); .split("").slice(-1)[0];
