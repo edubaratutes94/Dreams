@@ -141,7 +141,7 @@
                     <div style="height: 280px; cursor: pointer" data-toggle="modal" data-placement="top" href="#service{{ serv.pk }}" class="services__item">
                         <img  height="70px" width="70px" src="{% thumbnail serv.image 750x0 crop %}" alt="">
                         <h4>{{ serv.name }}</h4>
-                        <p>{{ serv.text|safe|truncatechars:100 }}</p>
+                        <p>{{ serv.text|striptags|truncatechars:100 }}</p>
                     </div>
                 </div>
                     <div class="modal fade" id="service{{ serv.pk }}" tabindex="-1" role="dialog"
