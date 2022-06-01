@@ -41,17 +41,16 @@
 <header class="header" style="z-index: 1">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-2 col-md-2">
+            <div class="col-lg-2 col-md-3">
                 <div class="header__logo" style="width: 300px">
                     <a style="font-family: 'Spectral', serif;
                         font-size: 38px;
                         color: #121212;
-                        font-style: italic;
-                        "
+                        font-style: italic;"
                        href="{% url 'home' %}">{{ general.name }}</a>
                 </div>
             </div>
-            <div class="col-lg-8 col-md-9">
+            <div class="col-lg-8 col-md-8">
                 <nav class="header__menu mobile-menu" style="padding-left: 90px">
                     <ul>
                         {% block inicio_active %}
