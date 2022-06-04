@@ -1,0 +1,145 @@
+{% extends 'dream_app/index.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block nosotros_active %}
+    <li class="active"><a href="#">Nosotros</a>
+        <ul class="dropdown">
+            <li><a href="{% url 'about' %}">Quiénes somos</a></li>
+            <li><a href="{% url 'team' %}">Equipo</a></li>
+        </ul>
+    </li>
+{% endblock %}
+    <!-- Header End -->
+{% block content %}
+    <!-- Breadcrumb Begin -->
+     <div class="breadcrumb-option set_bg" style="background-image: url({{ general.image_banner_2.url }});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: top center;
+            height: 600px">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h2>Sobre Nosotros</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- About Section Begin -->
+    <section class="about spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="about__text">
+                        <h2>{{ general.text_1_about }}</h2>
+                        <p>{{ general.descripcion_about|safe }}</p>
+
+{#                        <img src="../static/front/img/about/signature.png" alt="">#}
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="about__pic">
+                        <img width="521px"  src="{% thumbnail general.image_about 750x0 crop %}" alt="...">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="about__counter">
+                <div class="row">
+                    {% for inf in info %}
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="counter__item">
+                            <img height="90px" width="79px" src="{% thumbnail inf.image 750x0 crop %}" alt="">
+                            <h2 class="counter_num">{{ inf.cantidad }}</h2>
+                            <p>{{ inf.title }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section End -->
+
+    <!-- Testimonial Section Begin -->
+    <section class="testimonial spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Nuestro cliente dice:</h2>
+                        <img src="{% static 'dream_app/front/img/icon/ti.png'%}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="testimonial__carousel owl-carousel">
+                    {% for op in opiniones %}
+                    <div class="col-lg-6">
+                        <div class="testimonial__item">
+                            <div class="testimonial__item__text">
+                                <p>{{ op.text|safe|striptags }}
+                                </p>
+                            </div>
+                                <div class="testimonial__item__author__text">
+                                    <h5>{{ op.name }}</h5>
+                                </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Testimonial Section End -->
+
+    <!-- Team Section Begin -->
+    <section class="team spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Nuestro equipo</h2>
+                        <img src="{% static 'dream_app/front/img/icon/ti.png'%}" alt="">
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                {% for t in team %}
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="team__item">
+                        <div class="team__item__pic">
+                            <img class="img-circle" height="200" width="200" src="{{ t.image.url }}" alt="">
+                        </div>
+                        <div class="team__item__text">
+                            <h5>{{ t.name }}</h5>
+                            <span>{{ t.ocupation }}</span>
+                            <div class="team__item__social">
+                                {% if t.face %}
+                                <a target="_blank" href="{{ t.face }}"><i class="fa fa-facebook"></i></a>
+                                {% endif %}
+                             {% if t.twit %}
+                                <a target="_blank" href="{{ t.twit }}"><i class="fa fa-twitter"></i></a>
+                            {% endif %}
+                             {% if t.inst %}
+                                <a target="_blank" href="{{ t.inst }}"><i class="fa fa-instagram"></i></a>
+                            {% endif %}
+                             {% if t.link %}
+                                <a target="_blank" href="{{ t.link }}"><i class="fa fa-linkedin"></i></a>
+                            {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- Team Section End -->
+{% endblock %}

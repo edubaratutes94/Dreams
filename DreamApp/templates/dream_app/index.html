@@ -1,0 +1,472 @@
+{% load static %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Dreams Template">
+    <meta name="keywords" content="Dreams, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ general.name }}</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'dream_app/front/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'dream_app/front/css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'dream_app/front/css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'dream_app/front/css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'dream_app/front/css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'dream_app/front/css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'dream_app/front/css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'dream_app/front/css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'dream_app/sweetalert2/sweetalert2.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+    <link rel="stylesheet" href="{% static 'dream_app/front/css/gallery-grid.css' %}">
+</head>
+
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Header Section Begin -->
+<header class="header" style="z-index: 1">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 col-md-3">
+                <div class="header__logo" style="width: 200px">
+                    <a style="font-family: 'Spectral', serif;
+                        font-size: 38px;
+                        color: #121212;
+                        font-style: italic;"
+                       href="{% url 'home' %}">{{ general.name }}</a>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8">
+                <nav class="header__menu mobile-menu" style="padding-left: 90px">
+                    <ul>
+                        {% block inicio_active %}
+                            <li><a href="{% url 'home' %}">Inicio</a></li>
+                        {% endblock %}
+                        {% block servicio_active %}
+                            <li><a href="{% url 'services' %}">Servicios</a></li>
+                        {% endblock %}
+                        {% block portafolio_active %}
+                            <li><a href="{% url 'galery' %}">Portafolio</a></li>
+                        {% endblock %}
+                        {% block nosotros_active %}
+                            <li><a href="#">Nosotros</a>
+                                <ul class="dropdown">
+                                    <li><a href="{% url 'about' %}">Quiénes somos</a></li>
+                                    <li><a href="{% url 'team' %}">Equipo</a></li>
+                                </ul>
+                            </li>
+                        {% endblock %}
+                        {% block blog_active %}
+                            <li><a href="{% url 'blog' 1%}">Blog</a></li>
+                        {% endblock %}
+
+                        {% block contacto_active %}
+                            <li><a href="{% url 'contact' %}">Contacto</a></li>
+                        {% endblock %}
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-2 col-md-1">
+                <div class="header__right">
+                    <div class="header__right__social">
+                        {% if general.face %}
+                            <a target="_blank" href="{{ general.face }}"><i class="fa fa-facebook"></i></a>
+                        {% endif %}
+                        {% if general.twit %}
+                            <a target="_blank" href="{{ general.twit }}"><i class="fa fa-twitter"></i></a>
+                        {% endif %}
+                        {% if general.inst %}
+                            <a target="_blank" href="{{ general.inst }}"><i class="fa fa-instagram"></i></a>
+                        {% endif %}
+                        {% if general.yout %}
+                            <a target="_blank" href="{{ general.yout }}"><i class="fa fa-youtube"></i></a>
+                        {% endif %}
+                        {% if general.link %}
+                            <a target="_blank" href="{{ general.link }}"><i class="fa fa-linkedin"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+    </div>
+</header>
+<!-- Header End -->
+{% block content %}
+    <!-- Hero Section Begin -->
+    <section class="hero set_bg" style="background-image: url({{ general.image_banner_1.url }});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: top center">
+        <div class="container-fluid">
+            <div class="hero__text">
+                <img src="{% static 'dream_app/front/img/icon/hi.png'%}" alt="">
+                <h5>{{ general.slogan_1 }}</h5>
+                <h2>{{ general.slogan_2 }}</h2>
+                <p>{{ general.slogan_3 }}</p>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Services Section Begin -->
+    <section class="services spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Nuestros Servicios</h2>
+                        <img src="{% static 'dream_app/front/img/icon/ti.png'%}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for serv in services %}
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div style="height: 280px; cursor: pointer" data-toggle="modal" data-placement="top" href="#service{{ serv.pk }}" class="services__item">
+                        <img  height="70px" width="70px" src="{% thumbnail serv.image 750x0 crop %}" alt="">
+                        <h4>{{ serv.name }}</h4>
+                        <p>{{ serv.text|striptags|truncatechars:100 }}</p>
+                    </div>
+                </div>
+                    <div class="modal fade" id="service{{ serv.pk }}" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="width: 600px;padding: 20px">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true"></span>
+                                        <a class="icon_close"></a>
+                                    </button>
+                                    <h2 class="modal-title" id="myModalLabel">
+                                         {{ serv.name }}
+                                    </h2>
+                                    <h3 class="modal-title" style="color: #666666" id="myModalLabel">
+                                        <img height="200px" width="250px" src="{% thumbnail serv.image 750x0 crop %}" alt="">
+                                    </h3>
+                                    <div class="modal-body">
+                                        <p>
+                                            {{ serv.text|safe }}
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer" style="color: #a3a698">
+                                        <a class="primary-btn" style="cursor: pointer; color: white"  data-dismiss="modal">Cerrar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- Services Section End -->
+
+    <!-- Feature Section Begin -->
+    <section class="features spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>{{ general.text_portafolio_inicio }}</h2>
+                        <img src="{% static 'dream_app/front/img/icon/ti.png'%}" alt="">
+                    </div>
+                    <ul class="filter__controls">
+                        <li class="active" data-filter="*">Todas</li>
+                         {% for tip in tipo %}
+                        <li data-filter=".filter{{ tip.id }}">{{ tip.name }}</li>
+                         {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="feature__gallery">
+                <div class="grid-sizer"></div>
+                {% for gal in fotos %}
+                <div class="fg__item filter{{ gal.tipo.id }}" style="background-image: url({{ gal.image.url }});
+                        background-size: cover;
+                        background-position: top center">
+                    <div class="fg__item__text">
+                        <span>{{ gal.text }}</span>
+                        <h2>{{ gal.title }}</h2>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="load__more">
+                        <a href="{% url 'galery' %}" class="primary-btn">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Feature Section End -->
+
+    <!-- Counter Section Begin -->
+    <div class="counter spad set_bg">
+        <div class="container">
+            <div class="row">
+                {% for inf in info %}
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="counter__item">
+                            <img height="90px" width="79px" src="{% thumbnail inf.image 750x0 crop %}" alt="">
+                            <h2 class="counter_num">{{ inf.cantidad }}</h2>
+                            <p>{{ inf.title }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Counter Section End -->
+
+    <!-- Request Form Section Begin -->
+    <section class="request">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-7">
+                    <div class="request__form">
+                        <div class="section-title">
+                            <span>{{ general.text_1_solicitud }}</span>
+                            <h2>{{ general.text_2_solicitud }}</h2>
+                            <p>{{ general.text_3_solicitud }}</p>
+                        </div>
+                      <form id="form-submit" action="." method="post">{% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 px-2">
+                                     {{ form.full_name }}
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 px-2">
+                                     {{ form.email }}
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 px-2">
+                                        {{ form.servicio }}
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 px-2">
+                                     {{ form.phone }}
+                                </div>
+                                <div class="col-lg-12 px-2 text-center">
+                                     {{ form.text }}
+                                    <button type="submit" class="site-btn">Enviar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Request Form Section End -->
+
+    <!-- Latest Blog Section Begin -->
+    <section class="latest spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Nuestro Blog</h2>
+                        <img src="{% static 'dream_app/front/img/icon/ti.png' %}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for blo in blog %}
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="latest__item">
+                            <img width="360px" height="240px" src="{% thumbnail blo.image 750x0 crop %}" alt="">
+                            <ul>
+                                <li>{{ blo.title }}</li>
+                                <li>{{ blo.created_at }}</li>
+
+                            </ul>
+                            <h4><a href="{% url 'blog-detail' blo.pk %}">{{ blo.descripcion|safe|truncatechars:40 }}</a></h4>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- Latest Blog Section End -->
+{% endblock %}
+<!-- Logo Begin -->
+<div class="logo">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="logo__carousel owl-carousel">
+                    {% for spo in sponsor %}
+                        <div class="logo__item">
+                            <a href="#"><img height="60px" width="120px" src="{% thumbnail spo.image 750x0 crop %}" alt=""></a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Logo End -->
+
+<!-- Footer Section Begin -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="footer__logo">
+                    <a style="font-family: 'Spectral', serif;
+                        font-size: 38px;
+                        color: #ffffff;
+                        font-style: italic;
+                        width: 100%;" href="{% url 'home' %}">{{ general.name }}</a>
+
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h5>Horario</h5>
+                    <ul>
+                        <li>{{ general.horario }}</li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h5>Teléfono y Correo</h5>
+                    <ul>
+                        <li>{{ general.phone }}</li>
+                        <li>{{ general.email }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h5>Dirección</h5>
+                    <p>{{ general.address }}</p>
+                </div>
+                   <div class="footer__social">
+                        {% if general.face %}
+                            <a target="_blank" href="{{ general.face }}"><i class="fa fa-facebook"></i></a>
+                        {% endif %}
+                        {% if general.twit %}
+                            <a target="_blank" href="{{ general.twit }}"><i class="fa fa-twitter"></i></a>
+                        {% endif %}
+                        {% if general.inst %}
+                            <a target="_blank" href="{{ general.inst }}"><i class="fa fa-instagram"></i></a>
+                        {% endif %}
+                        {% if general.yout %}
+                            <a target="_blank" href="{{ general.yout }}"><i class="fa fa-youtube"></i></a>
+                        {% endif %}
+                        {% if general.link %}
+                            <a target="_blank" href="{{ general.link }}"><i class="fa fa-linkedin"></i></a>
+                        {% endif %}
+                    </div>
+            </div>
+        </div>
+        <div class="footer__copyright">
+            <div class="row">
+                <div class="col-lg-7 col-md-7">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <p class="footer__copyright__text">Copyright &copy;<script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                        All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                                                            aria-hidden="true"></i> by <a
+                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                    </p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    <ul class="footer__copyright__widget">
+                        <li><a style="height: 280px; cursor: pointer" data-toggle="modal" data-placement="top" href="#term">Terms & Use</a></li>
+                        <li><a style="height: 280px; cursor: pointer" data-toggle="modal" data-placement="top" href="#privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="modal fade" id="term" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="width: 600px;padding: 20px">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true"></span>
+                                        <a class="icon_close"></a>
+                                    </button>
+                                    <h2 class="modal-title" id="myModalLabel">
+                                         Terms & Use
+                                    </h2>
+                                    <div class="modal-body">
+                                        <p>
+                                            {{ general.term_use|safe|striptags }}
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer" style="color: #a3a698">
+                                        <a class="primary-btn" style="cursor: pointer; color: white"  data-dismiss="modal">Cerrar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                <div class="modal fade" id="privacy" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="width: 600px;padding: 20px">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true"></span>
+                                        <a class="icon_close"></a>
+                                    </button>
+                                    <h2 class="modal-title" id="myModalLabel">
+                                         Privacy Policy
+                                    </h2>
+                                    <div class="modal-body">
+                                        <p>
+                                            {{ general.policity_privacity|safe }}
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer" style="color: #a3a698">
+                                        <a class="primary-btn" style="cursor: pointer; color: white"  data-dismiss="modal">Cerrar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Search model Begin -->
+
+<!-- Search model end -->
+
+<!-- Js Plugins -->
+<script src="{% static 'dream_app/front/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'dream_app/front/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'dream_app/front/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'dream_app/front/js/mixitup.min.js' %}"></script>
+<script src="{% static 'dream_app/front/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'dream_app/front/js/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'dream_app/front/js/masonry.pkgd.min.js' %}"></script>
+<script src="{% static 'dream_app/front/js/jquery.slicknav.js' %}"></script>
+<script src="{% static 'dream_app/front/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'dream_app/front/js/main.js' %}"></script>
+
+<script src="{% static 'dream_app/sweetalert2/sweetalert2.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+<script>
+    baguetteBox.run('.tz-gallery');
+</script>
+{% load sweetify %}
+{% sweetify %}
+</body>
+
+</html>

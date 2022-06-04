@@ -1,0 +1,85 @@
+{% extends 'dream_app/index.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block nosotros_active %}
+                        <li class="active"><a href="#">Nosotros</a>
+                            <ul class="dropdown">
+                               <li><a href="{% url 'about' %}">Quiénes somos</a></li>
+                                <li><a href="{% url 'team' %}">Equipo</a></li>
+                            </ul>
+                        </li>
+                            {% endblock %}
+    <!-- Header End -->
+{% block content %}
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option set_bg" style="background-image: url({{ general.image_banner_2.url }});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: top center;
+            height: 600px">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h2>Nuestro equipo</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Team Section Begin -->
+    <section class="team spad">
+        <div class="container">
+            <div class="row">
+                {% for t in team %}
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="team__item">
+                        <div class="team__item__pic">
+                            <img class="img-circle" height="200" width="200" src="{{ t.image.url }}" alt="">
+                        </div>
+                        <div class="team__item__text">
+                            <h5>{{ t.name }}</h5>
+                            <span>{{ t.ocupation }}</span>
+                            <div class="team__item__social">
+                                {% if t.face %}
+                                <a target="_blank" href="{{ t.face }}"><i class="fa fa-facebook"></i></a>
+                                {% endif %}
+                             {% if t.twit %}
+                                <a target="_blank" href="{{ t.twit }}"><i class="fa fa-twitter"></i></a>
+                            {% endif %}
+                             {% if t.inst %}
+                                <a target="_blank" href="{{ t.inst }}"><i class="fa fa-instagram"></i></a>
+                            {% endif %}
+                             {% if t.link %}
+                                <a target="_blank" href="{{ t.link }}"><i class="fa fa-linkedin"></i></a>
+                            {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- Team Section End -->
+
+    <!-- Call To Action Begin -->
+{#    <section class="callto spad">#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="col-lg-12">#}
+{#                    <div class="callto__content set-bg" data-setbg="img/team/callto-bg.png">#}
+{#                        <div class="callto__text">#}
+{#                            <h2>Joinn with us</h2>#}
+{#                            <p>Every love story is beautiful. But your is our favourite.</p>#}
+{#                            <a href="#" class="primary-btn">View more</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </section>#}
+    <!-- Call To Action End -->
+{% endblock %}

@@ -25,7 +25,7 @@ def home(request):
 
             entidad = models.General.objects.get()
             subject = _('Nueva Solicitud')
-            message = render_to_string('correo.html', {
+            message = render_to_string('dream_app/correo.html', {
                 'reserva': solicitud,
             })
             send_mail(subject,
@@ -41,7 +41,7 @@ def home(request):
     blog = models.Blog.objects.order_by("-id").all()[:3]
     tipo = models.Tipo_galery.objects.filter(active=True).all()
     fotos = models.Galery.objects.filter(active=True).all()[:6]
-    return render(request, 'inicio.html',
+    return render(request, 'dream_app/inicio.html',
                   {'services': services, 'info': info, 'blog': blog, 'sponsor': sponsor, 'fotos': fotos, 'tipo': tipo})
 
 
@@ -59,7 +59,7 @@ def services(request):
 
             entidad = models.General.objects.get()
             subject = _('Nueva Solicitud')
-            message = render_to_string('correo.html', {
+            message = render_to_string('dream_app/correo.html', {
                 'reserva': solicitud,
             })
             send_mail(subject,
@@ -71,7 +71,7 @@ def services(request):
             return HttpResponseRedirect('/services/')
     services = models.Service.objects.all()
     planes = models.Planes.objects.all()
-    return render(request, 'services.html', {'services': services, 'planes': planes})
+    return render(request, 'dream_app/services.html', {'services': services, 'planes': planes})
 
 
 def blogs(request, index):
@@ -88,7 +88,7 @@ def blogs(request, index):
         page_obj = paginator.page(paginator.num_pages)
     # page_obj = paginator.get_page(page_number)
     destacado = models.Blog.objects.filter(active=True).all()
-    return render(request, 'blog.html', {'page_obj': page_obj, 'destacado': destacado })
+    return render(request, 'dream_app/blog.html', {'page_obj': page_obj, 'destacado': destacado })
 
 
 def blog_detail(request, pk):
@@ -103,7 +103,7 @@ def blog_detail(request, pk):
         the_prev = None
     blogs = models.Blog.objects.exclude(pk=pk).order_by("-id").all()[:3]
     destacado = models.Blog.objects.filter(active=True).all()
-    return render(request, 'blog_details.html',
+    return render(request, 'dream_app/blog_details.html',
                   {'blog': blog, 'destacado': destacado, 'blogs': blogs, 'the_next': the_next, 'the_prev': the_prev})
 
 
@@ -117,7 +117,7 @@ def contact(request):
         comentario.save()
         entidad = models.General.objects.get()
         subject = _('Nuevo Mensaje')
-        message = render_to_string('correo_contact.html', {
+        message = render_to_string('dream_app/correo_contact.html', {
             'mensaje': comentario,
         })
         send_mail(subject,
@@ -127,22 +127,21 @@ def contact(request):
                   )
         sweetify.success(request, 'Mensaje enviado con éxito', button='Ok', timer=5000)
         return HttpResponseRedirect("/contact/")
-    return render(request, "contact.html")
-
+    return render(request, "dream_app/contact.html")
 
 def team(request):
     team = models.Team.objects.all()
-    return render(request, 'team.html', {'team': team})
+    return render(request, 'dream_app/team.html', {'team': team})
 
 
 def about(request):
     info = models.Info_extra.objects.all()
     opiniones = models.Opinion.objects.all()
     team = models.Team.objects.all()
-    return render(request, 'about.html', {'info': info, 'opiniones': opiniones, 'team': team})
+    return render(request, 'dream_app/about.html', {'info': info, 'opiniones': opiniones, 'team': team})
 
 
 def galery(request):
     tipo = models.Tipo_galery.objects.all()
     fotos = models.Galery.objects.all()
-    return render(request, 'portfolio.html', {'fotos': fotos, 'tipo': tipo})
+    return render(request, 'dream_app/portfolio.html', {'fotos': fotos, 'tipo': tipo})

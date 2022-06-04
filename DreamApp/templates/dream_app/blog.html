@@ -1,0 +1,105 @@
+{% extends 'dream_app/index.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block blog_active %}
+    <li class="active"><a href="{% url 'blog' 1%}">Blog</a></li>
+{% endblock %}
+    <!-- Header End -->
+{% block content %}
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option set_bg" style="background-image: url({{ general.image_banner_2.url }});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: top center;
+            height: 600px">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h2>Blog</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Blog Section Begin -->
+    <section class="blog spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    {% for blo in page_obj %}
+                    <div class="blog__item">
+                        <div class="blog__item__title">
+                            <ul>
+                                <li>{{ blo.text_small }}</li>
+                                <li>{{ blo.created_at }}</li>
+                            </ul>
+                            <h2>{{ blo.title }}</h2>
+                        </div>
+                        <div class="blog__item__pic__slider owl-carousel">
+                            <img height="440px" src="{% thumbnail blo.image 750x0 crop %}">
+                            {% for img in blo.galery_blog_set.all %}
+                            <img height="440px" src="{% thumbnail img.image 750x0 crop %}">
+                            {% endfor %}
+                        </div>
+                        <div class="blog__item__text">
+                            <p>{{ blo.descripcion|safe|striptags|truncatechars:200 }} </p>
+                            <a href="{% url 'blog-detail' blo.pk %}">LEER MÁS</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                        <div class="pagination__option">
+
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}"><span class="arrow_left"></span></a>
+                            {% else %}
+                                <span> No más </span>
+                            {% endif %}
+                            {% for page_number in page_obj.paginator.page_range %}
+
+                                {% ifequal page_number  page_obj.number %}
+                                    <a class="active" href="#">{{ page_number }}</a>
+
+                                {% else %}
+                                    <a href="?page={{ page_number }}">{{ page_number }}</a>
+
+                                {% endifequal %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}"><span class="arrow_right"></span></a>
+                            {% else %}
+                                <span> No más </span>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="blog__sidebar">
+                            <div class="blog__sidebar__item">
+                                <h4>Blogs Destacados</h4>
+                            {% if destacado %}
+                                 {% for dest in destacado %}
+                                <a href="{% url 'blog-detail' dest.id %}" class="blog__sidebar__recent__item">
+                                    <div class="blog__sidebar__recent__item__pic">
+                                        <img width="80px" height="80px" src="{% thumbnail dest.image 750x0 crop %}" alt="">
+                                    </div>
+                                    <div class="blog__sidebar__recent__item__text">
+                                        <h5>{{ dest.title|safe|striptags|truncatechars:45 }}</h5>
+                                        <span>{{ dest.created_at }}</span>
+                                    </div>
+                                </a>
+                                 {% endfor %}
+                            {% else %}
+                            <h5>No hay blogs destacados</h5>
+                            {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Blog Section End -->
+{% endblock %}

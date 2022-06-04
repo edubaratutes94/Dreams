@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 from typing import Any, Dict
+from decouple import config
 from pathlib import Path
 import os
 
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'Dream.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, 'templates']
+        'DIRS': [BASE_DIR, 'DreamApp/templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -123,11 +124,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_URL = '/DreamApp/static/dream_app/front/'
+STATIC_ROOT = os.path.join(BASE_DIR, '/DreamApp/static/dream_app/front/')
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, '/DreamApp/static/dream_app/front/')]
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CKEDITOR_UPLOAD_PATH = "/static/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "/DreamApp/static/dream_app/ckeditor/"
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 CKEDITOR_CONFIGS = {
     'default': {
@@ -151,8 +154,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_PORT = 587
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 JAZZMIN_SETTINGS: Dict[str, Any] = {
     "site_title": "Admin",

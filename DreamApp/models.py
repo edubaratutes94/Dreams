@@ -15,15 +15,15 @@ class General(models.Model):
     text_2_solicitud = models.CharField(max_length=255, verbose_name="Segundo texto de formulario solicitud",help_text="2do texto del Cartel arriba del formulario", blank=True, null=True)
     text_3_solicitud = models.CharField(max_length=255, verbose_name="Tercer texto de formulario solicitud",help_text="3er texto del Cartel arriba del formulario", blank=True, null=True)
     text_portafolio_inicio = models.CharField(max_length=255, verbose_name="Texto que encabeza el portafolio",help_text="Texto que encabeza el portafolio en inicio", blank=True, null=True)
-    image_banner_1 = models.ImageField(upload_to='static/upload', verbose_name="Imagen Banner Inicio",help_text="Imagen del Banner en la Página de inicio")
+    image_banner_1 = models.ImageField(upload_to='general', verbose_name="Imagen Banner Inicio",help_text="Imagen del Banner en la Página de inicio")
     text_1_about = models.CharField(max_length=255, verbose_name="Titulo de Contactos",
                                       help_text="Titulo de la página Nosotros", blank=True,
                                       null=True)
     descripcion_about = RichTextField(verbose_name="Descripcion de Nosotros",help_text="Descripción de la Página Nosotros")
     policity_privacity = RichTextField(verbose_name="Politica y Privacidad",help_text="Descripción de la Politica y la Privacidad")
     term_use = RichTextField(verbose_name="Terminos y Uso",help_text="Descripción de los terminos y Uso")
-    image_about = models.ImageField(upload_to='static/upload', verbose_name="Imagen de nosotros",help_text="Imagen de la página Nosotros")
-    image_banner_2 = models.ImageField(upload_to='static/upload', verbose_name="Imagen Banner Otras Vistas",help_text="Imagen del Banner en el resto de las vistas")
+    image_about = models.ImageField(upload_to='general', verbose_name="Imagen de nosotros",help_text="Imagen de la página Nosotros")
+    image_banner_2 = models.ImageField(upload_to='general', verbose_name="Imagen Banner Otras Vistas",help_text="Imagen del Banner en el resto de las vistas")
     address = models.CharField(max_length=255, verbose_name="Direccion", blank=True, null=True)
     horario = models.CharField(max_length=255, verbose_name="Horarios",help_text="Horarios", blank=True, null=True)
     email = models.EmailField(verbose_name="Correo de Contactos", blank=True, null=True,help_text="Correo que aparece en la página contactos")
@@ -48,7 +48,7 @@ class Blog(models.Model):
     text_small = models.CharField(max_length=255, verbose_name="Texto pequeño", blank=True, null=True)
     descripcion = RichTextField(verbose_name="Descripción")
     active = models.BooleanField(verbose_name="Destacado", default=False)
-    image = models.ImageField(upload_to="static/upload", verbose_name="Imagen Principal", null=True)
+    image = models.ImageField(upload_to="blog/%Y/%m/%d", verbose_name="Imagen Principal", null=True)
 
     def __str__(self):
         return self.title
@@ -63,7 +63,7 @@ class Blog(models.Model):
 class Galery_blog(models.Model):
     created_at = models.DateField(verbose_name="Creado", auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Modificado")
-    image = models.ImageField(upload_to="static/upload", verbose_name="Imagen", null=True)
+    image = models.ImageField(upload_to="galery_blog", verbose_name="Imagen", null=True)
     blog = models.ForeignKey(Blog, models.CASCADE, verbose_name="Blog", null=True)
 
     def __str__(self):
@@ -77,7 +77,7 @@ class Info_extra(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Modificado")
     title = models.CharField(max_length=255, verbose_name="Título")
     cantidad = models.IntegerField(verbose_name="Cantidad", blank=True, null=True)
-    image = models.ImageField(upload_to="static/upload", verbose_name="Logo", null=True)
+    image = models.ImageField(upload_to="info_extra", verbose_name="Logo", null=True)
 
     def __str__(self):
         return self.title
@@ -89,7 +89,7 @@ class Sponsor(models.Model):
     created_at = models.DateField(verbose_name="Creado", auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Modificado")
     name = models.CharField(max_length=255, verbose_name="Nombre")
-    image = models.ImageField(upload_to="static/upload", verbose_name="Logo", null=True)
+    image = models.ImageField(upload_to="sponsor", verbose_name="Logo", null=True)
 
     def __str__(self):
         return self.name
@@ -140,7 +140,7 @@ class Galery(models.Model):
     title = models.CharField(max_length=255, verbose_name="Título")
     text = models.CharField(max_length=255, verbose_name="Texto")
     active = models.BooleanField(verbose_name="Visible en inicio", default=False)
-    image = models.ImageField(upload_to="static/upload", verbose_name="Imagen", null=True)
+    image = models.ImageField(upload_to="galery", verbose_name="Imagen", null=True)
     tipo = models.ForeignKey(Tipo_galery, models.CASCADE, verbose_name="Tipo de Galería")
 
 
@@ -155,7 +155,7 @@ class Service(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Modificado")
     name = models.CharField(max_length=255, verbose_name="Nombre del servicio")
     text = RichTextField(verbose_name="Texto")
-    image = models.ImageField(upload_to="static/upload", verbose_name="Imagen", null=True)
+    image = models.ImageField(upload_to="service", verbose_name="Imagen", null=True)
 
     def __str__(self):
         return self.name
@@ -182,7 +182,7 @@ class Team(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="updated_at")
     name = models.CharField(max_length=255, verbose_name="Nombre Completo")
     ocupation = models.CharField(max_length=255, verbose_name="Ocupación")
-    image = models.ImageField(upload_to="static/upload", verbose_name="Imagen", null=True)
+    image = models.ImageField(upload_to="team", verbose_name="Imagen", null=True)
     face = models.URLField(verbose_name="Facebook", blank=True, null=True)
     inst = models.URLField(verbose_name="Instagram", blank=True, null=True)
     twit = models.URLField(verbose_name="Twitter", blank=True, null=True)

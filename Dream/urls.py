@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from DreamApp import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
@@ -28,4 +30,4 @@ urlpatterns = [
     path('galery/', views.galery, name='galery'),
     path('blog-list/<int:index>', views.blogs, name='blog'),
     path('blog-list/detalle/<int:pk>', views.blog_detail, name="blog-detail"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
